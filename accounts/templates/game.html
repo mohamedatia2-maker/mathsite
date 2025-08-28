@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ألعاب الرياضيات — نسخة مطورة</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Cairo',Arial,sans-serif;background:#f9fafb;color:#111;overflow-x:hidden}
+    header{background:linear-gradient(135deg,#1e3a8a,#3b82f6,#10b981);
+      padding:1rem;display:flex;align-items:center;justify-content:space-between;
+      position:sticky;top:0;z-index:100}
+    .logo i{font-size:1.8rem;color:#fff;animation:rotate 4s linear infinite}
+    @keyframes rotate{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+    nav{display:flex;gap:1rem}
+    nav a{color:#fff;text-decoration:none;padding:.5rem 1rem;border-radius:10px}
+    nav a:hover{background:rgba(255,255,255,.2)}
+    .hamburger{display:none;color:#fff;font-size:1.4rem;cursor:pointer}
+
+    .games{padding:1.5rem;min-height:calc(100vh - 64px)}
+    .games h1{text-align:center;margin-bottom:1rem}
+    .game-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
+    .game-card{background:linear-gradient(135deg,#3b82f6,#10b981);color:#fff;padding:1rem;border-radius:14px;cursor:pointer;text-align:center;transition:.3s}
+    .game-card:hover{transform:translateY(-4px)}
+    .game-card i{font-size:2.2rem;margin-bottom:.5rem}
+
+    .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:200;justify-content:center;align-items:center;padding:1rem}
+    .modal.open{display:flex}
+    .modal-content{background:#fff;max-width:750px;width:100%;border-radius:14px;padding:1rem;position:relative}
+    .close-modal{position:absolute;top:.6rem;left:.7rem;font-size:1.4rem;cursor:pointer}
+
+    .hud{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem;justify-content:center}
+    .chip{background:#f1f5f9;border:1px solid #e2e8f0;border-radius:10px;padding:.35rem .6rem;font-weight:bold}
+
+    .question-box{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:1rem;margin:1rem 0;box-shadow:0 2px 6px rgba(0,0,0,.08)}
+    .question-text{font-size:1.2rem;margin-bottom:.75rem;text-align:center}
+    .answers{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:.6rem;margin-top:.75rem}
+    .answers button{background:#fff;border:1px solid #d1d5db;border-radius:8px;padding:.6rem;cursor:pointer;transition:.3s}
+    .answers button:hover{background:#3b82f6;color:#fff}
+
+    .input-answer{display:flex;gap:.5rem;justify-content:center}
+    .input-answer input{padding:.6rem;border:1px solid #d1d5db;border-radius:8px;width:150px;text-align:center}
+
+    .level-select{display:flex;justify-content:center;gap:.5rem;margin:1rem 0}
+    .level-select button{padding:.6rem 1rem;border:none;border-radius:10px;color:#fff;cursor:pointer}
+    .easy{background:#10b981}.medium{background:#f59e0b}.hard{background:#ef4444}
+
+     footer {
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+        footer .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        footer .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        footer .footer-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+        footer .footer-links a:hover {
+            color: #10b981;
+        }
+        footer .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 1rem 0;
+        }
+        footer .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+        footer .social-icons a:hover {
+            color: #10b981;
+        }
+        footer p {
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+    @media (max-width:768px){
+      nav{display:none}
+      nav.active{display:flex;flex-direction:column;position:absolute;top:64px;left:0;background:#1e3a8a;width:100%;padding:1rem}
+      .hamburger{display:block}
+    }
+     .back-button-container {
+        text-align: center;
+        margin: 2rem 0;
+    }
+    .back-button {
+        background: #3b82f6;
+        color: white;
+        padding: 0.6rem 1.2rem;
+        border-radius: 12px;
+        cursor: pointer;
+        font-family: 'Cairo', Arial, sans-serif;
+        font-size: 1rem;
+        border: none;
+        transition: background 0.3s, transform 0.2s;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    .back-button:hover {
+        background: #2563eb;
+        transform: scale(1.05);
+    }
+    .dark-mode .back-button {
+        background: #2563eb;
+    }
+    .dark-mode .back-button:hover {
+        background: #1e3a8a;
+    }
+    @media (max-width: 480px) {
+        .back-button {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo"><i class="fas fa-calculator"></i></div>
+    <div class="hamburger"><i class="fas fa-bars"></i></div>
+    <nav id="nav-menu">
+      <a href="index.html">الرئيسية</a>
+      <a href="tests.html">اختبارات</a>
+      <a href="game.html">ألعاب رياضيات</a>
+      <a href="contact.html">تواصل معنا</a>
+    </nav>
+  </header>
+
+  <section class="games">
+    <h1>🎮 ألعاب الرياضيات للثانوي</h1>
+    <p style="text-align:center;margin:.5rem 0">اختر مستوى الصعوبة أولاً:</p>
+    <div class="level-select">
+      <button class="easy" onclick="setLevel('easy')">سهل</button>
+      <button class="medium" onclick="setLevel('medium')">متوسط</button>
+      <button class="hard" onclick="setLevel('hard')">صعب</button>
+    </div>
+    <div class="game-grid">
+      <article class="game-card" data-game="algebra"><i class="fas fa-square-root-alt"></i><h3>الجبر</h3></article>
+      <article class="game-card" data-game="geometry"><i class="fas fa-shapes"></i><h3>الهندسة</h3></article>
+      <article class="game-card" data-game="calculus"><i class="fas fa-infinity"></i><h3>التفاضل</h3></article>
+      <article class="game-card" data-game="integration"><i class="fas fa-divide"></i><h3>التكامل</h3></article>
+      <article class="game-card" data-game="probability"><i class="fas fa-dice"></i><h3>الاحتمالات</h3></article>
+      <article class="game-card" data-game="trigonometry"><i class="fas fa-ruler-combined"></i><h3>المثلثات</h3></article>
+      <article class="game-card" data-game="statistics"><i class="fas fa-chart-bar"></i><h3>الإحصاء</h3></article>
+      <article class="game-card" data-game="marathon"><i class="fas fa-trophy"></i><h3>الماراثون</h3></article>
+    </div>
+  </section>
+
+  <div class="modal" id="game-modal">
+    <div class="modal-content">
+      <span class="close-modal" id="close-modal">&times;</span>
+      <div class="hud">
+        <div class="chip">⏳ <span id="time">--</span>s</div>
+        <div class="chip">⭐ <span id="points">0</span></div>
+        <div class="chip">📊 <span id="level">---</span></div>
+      </div>
+      <div id="game-area"></div>
+    </div>
+  </div>
+   <div class="back-button-container">
+    <button class="back-button" onclick="history.back()"><i class="fas fa-arrow-right"></i> رجوع</button>
+</div>
+
+<footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="index.html">الرئيسية</a>
+                <a href="tests.html">اختبارات</a>
+                <a href="game.html">ألعاب رياضيات</a>
+                <a href="contact.html">تواصل معنا</a>
+            </div>
+            <div class="social-icons">
+                <a href="https://www.youtube.com/@%D8%B3%D9%84%D8%B3%D9%84%D8%A9%D9%87%D9%86%D8%AF%D8%B3%D8%AA%D9%89-%D9%81%D9%89-%D8%A7%D9%84%D8%B1%D9%8A%D8%A7%D8%B6%D9%8A%D8%A7%D8%AA" target="_blank" aria-label="يوتيوب"><i class="fab fa-youtube"></i></a>
+                <a href="https://twitter.com" target="_blank" aria-label="تويتر"><i class="fab fa-twitter"></i></a>
+                <a href="https://facebook.com" target="_blank" aria-label="فيسبوك"><i class="fab fa-facebook"></i></a>
+                <a href="https://wa.me/1234567890" target="_blank" aria-label="واتساب"><i class="fab fa-whatsapp"></i></a>
+            </div>
+            <p>جميع الحقوق محفوظة © 2025</p>
+        </div>
+    </footer>
+
+  <script>
+       // Ensure back button respects dark mode
+    if (localStorage.getItem('darkMode') === 'true') {
+        document.querySelector('.back-button').classList.add('dark-mode');
+    }
+    const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
+    const state={game:null,points:0,timer:null,timeLeft:15,level:"medium"};
+    const levels={easy:{time:20,range:10},medium:{time:15,range:20},hard:{time:10,range:50}};
+    function rng(min,max){return Math.floor(Math.random()*(max-min+1))+min}
+    function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+    function setLevel(l){state.level=l;$('#level').textContent=l;alert("تم اختيار المستوى: "+l)}
+    function startTimer(nextQ){clearInterval(state.timer);state.timeLeft=levels[state.level].time;$('#time').textContent=state.timeLeft;state.timer=setInterval(()=>{state.timeLeft--;$('#time').textContent=state.timeLeft;if(state.timeLeft<=0){clearInterval(state.timer);nextQ();}},1000);}
+    function correct(){state.points++;$('#points').textContent=state.points;}
+
+    // جبر
+    function genAlgebra(nextQ){const r=levels[state.level].range;const a=rng(1,r),x=rng(1,r),b=rng(1,r),rhs=a*x+b;
+      $('#game-area').innerHTML=`<div class="question-box"><div class="question-text">حل: ${a}x + ${b} = ${rhs}</div><div class="input-answer"><input id="ans"><button id="check">تحقق</button></div></div>`;
+      $('#check').onclick=()=>{if(+$('#ans').value===x){correct();}nextQ();};
+    }
+    // هندسة
+    function genGeometry(nextQ){const qType=rng(1,3);let q,correctAns;
+      if(qType===1){const a=rng(2,10),b=rng(2,10);q=`مساحة مستطيل ${a} × ${b} ؟`;correctAns=a*b;}
+      if(qType===2){const b=rng(2,10),h=rng(2,10);q=`مساحة مثلث قاعدته ${b} وارتفاعه ${h} ؟`;correctAns=0.5*b*h;}
+      if(qType===3){const r=rng(2,10);q=`مساحة دائرة نصف قطرها ${r} (π≈3.14) ؟`;correctAns=(3.14*r*r).toFixed(1);}
+      const opts=shuffle([correctAns,correctAns+2,correctAns-2]);
+      $('#game-area').innerHTML=`<div class="question-box"><div class="question-text">${q}</div><div class="answers"></div></div>`;
+      opts.forEach(o=>{const btn=document.createElement('button');btn.textContent=o;btn.onclick=()=>{if(o==correctAns)correct();nextQ();};$('#game-area .answers').appendChild(btn);});
+    }
+    // تفاضل
+    function genCalculus(nextQ){const questions=[{q:"مشتقة x² =",a:"2x"},{q:"مشتقة 3x =",a:"3"},{q:"مشتقة sin(x) =",a:"cos(x)"},{q:"مشتقة cos(x) =",a:"-sin(x)"},{q:"مشتقة x³ =",a:"3x²"}];
+      const q=questions[rng(0,questions.length-1)];
+      $('#game-area').innerHTML=`<div class="question-box"><div class="question-text"><strong>${q.q}</strong></div><div class="input-answer"><input id="ans" placeholder="اكتب الإجابة"><button id="check">تحقق</button></div></div>`;
+      $('#check').onclick=()=>{if($('#ans').value.replace(/\s/g,"")===q.a){correct();}nextQ();};
+    }
+    // تكامل
+    function genIntegration(nextQ){const questions=[{q:"∫ x dx =",a:"0.5x² + C"},{q:"∫ cos(x) dx =",a:"sin(x)+C"},{q:"∫ 2x dx =",a:"x² + C"},{q:"∫ 1 dx =",a:"x + C"}];
+      const q=questions[rng(0,questions.length-1)];
+      $('#game-area').innerHTML=`<div class="question-box"><div class="question-text"><strong>${q.q}</strong></div><div class="input-answer"><input id="ans" placeholder="اكتب الإجابة"><button id="check">تحقق</button></div></div>`;
+      $('#check').onclick=()=>{if($('#ans').value.replace(/\s/g,"")===q.a.replace(/\s/g,"")){correct();}nextQ();};
+    }
+    // احتمالات
+    function genProbability(nextQ){const questions=[{q:"احتمال ظهور 6 في رمية نرد واحدة =",a:"1/6"},{q:"احتمال الحصول على عدد زوجي في نرد =",a:"1/2"},{q:"احتمال الحصول على وجه ملك من ورق اللعب =",a:"4/52"}];const q=questions[rng(0,questions.length-1)];
+      $('#game-area').innerHTML=`<div class="question-box"><div class="question-text">${q.q}</div><div class="input-answer"><input id="ans" placeholder="اكتب الإجابة"><button id="check">تحقق</button></div></div>`;
+      $('#check').onclick=()=>{if($('#ans').value===q.a){correct();}nextQ();};
+    }
+    // مثلثات
+    function genTrigonometry(nextQ){const questions=[{q:"قيمة sin(90°) =",a:"1"},{q:"قيمة cos(0°) =",a:"1"},{q:"قيمة tan(45°) =",a:"1"}];const q=questions[rng(0,questions.length-1)];
+      $('#game-area').innerHTML=`<div class="question-box"><div class="question-text">${q.q}</div><div class="input-answer"><input id="ans"><button id="check">تحقق</button></div></div>`;
+      $('#check').onclick=()=>{if($('#ans').value===q.a){correct();}nextQ();};
+    }
+    // إحصاء
+    function genStatistics(nextQ){const questions=[{q:"المتوسط الحسابي للأعداد 2,4,6 =",a:"4"},{q:"الوسيط للقيم 1,3,5 =",a:"3"},{q:"المنوال للقيم 2,2,3,4 =",a:"2"}];const q=questions[rng(0,questions.length-1)];
+      $('#game-area').innerHTML=`<div class="question-box"><div class="question-text">${q.q}</div><div class="input-answer"><input id="ans"><button id="check">تحقق</button></div></div>`;
+      $('#check').onclick=()=>{if($('#ans').value===q.a){correct();}nextQ();};
+    }
+
+    // ماراثون
+    function genMarathon(nextQ){const types=["algebra","geometry","calculus","integration","probability","trigonometry","statistics"];state.game=types[rng(0,types.length-1)];nextQuestion();}
+
+    function nextQuestion(){const nextQ=()=>nextQuestion();startTimer(nextQ);
+      if(state.game==="algebra")genAlgebra(nextQ);
+      if(state.game==="geometry")genGeometry(nextQ);
+      if(state.game==="calculus")genCalculus(nextQ);
+      if(state.game==="integration")genIntegration(nextQ);
+      if(state.game==="probability")genProbability(nextQ);
+      if(state.game==="trigonometry")genTrigonometry(nextQ);
+      if(state.game==="statistics")genStatistics(nextQ);
+      if(state.game==="marathon")genMarathon(nextQ);
+    }
+    function startGame(game){if(!state.level){alert("اختر مستوى أولاً");return;}state.game=game;state.points=0;$('#points').textContent=0;$('#level').textContent=state.level;$('#game-modal').classList.add('open');nextQuestion();}
+    $$('.game-card').forEach(c=>c.onclick=()=>startGame(c.dataset.game));
+    $('#close-modal').onclick=()=>{$('#game-modal').classList.remove('open');clearInterval(state.timer);}
+    document.querySelector('.hamburger').onclick=()=>$('#nav-menu').classList.toggle('active');
+  </script>
+</body>
+</html>

@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="شرح دروس الوحدة الثالثة: الدوال للصف الثاني الثانوي مع فيديوهات، تمارين، واختبارات.">
+    <title>الوحدة الثالثة: الدوال - الصف الثاني الثانوي</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style type="text/css">@font-face {font-family:Cairo;font-style:normal;font-weight:400;src:url(/cf-fonts/v/cairo/5.0.18/arabic/wght/normal.woff2);unicode-range:U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0898-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC;font-display:swap;}@font-face {font-family:Cairo;font-style:normal;font-weight:400;src:url(/cf-fonts/v/cairo/5.0.18/latin/wght/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:Cairo;font-style:normal;font-weight:400;src:url(/cf-fonts/v/cairo/5.0.18/latin-ext/wght/normal.woff2);unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:Cairo;font-style:normal;font-weight:700;src:url(/cf-fonts/v/cairo/5.0.18/arabic/wght/normal.woff2);unicode-range:U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0898-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC;font-display:swap;}@font-face {font-family:Cairo;font-style:normal;font-weight:700;src:url(/cf-fonts/v/cairo/5.0.18/latin/wght/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:Cairo;font-style:normal;font-weight:700;src:url(/cf-fonts/v/cairo/5.0.18/latin-ext/wght/normal.woff2);unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}</style>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Cairo', Arial, sans-serif;
+            background: #fff;
+            color: #222;
+            text-align: right;
+            overflow-x: hidden;
+            transition: background 0.3s, color 0.3s;
+        }
+        .dark-mode {
+            background: #1e1e1e;
+            color: #e0e0e0;
+        }
+        .dark-mode .unit-content {
+            background: linear-gradient(135deg, #2d2d2d, #3b3b3b);
+        }
+        .dark-mode .lesson-item {
+            background: #2a2a2a;
+            box-shadow: 0 4px 8px rgba(255,255,255,0.1);
+        }
+        .dark-mode .resource-item a {
+            color: #3b82f6;
+        }
+        .dark-mode .resource-item a:hover {
+            color: #60a5fa;
+        }
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #1e3a8a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 0.3s;
+        }
+        .loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .loader i {
+            font-size: 3rem;
+            color: white;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        header {
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6, #10b981);
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            animation: gradient 8s ease infinite;
+            background-size: 200% 200%;
+        }
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .logo i {
+            font-size: 2rem;
+            color: white;
+            animation: rotate 4s linear infinite;
+        }
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        nav {
+            display: flex;
+            gap: 1rem;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 15px;
+            transition: background 0.3s, transform 0.2s;
+        }
+        nav a:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+        .hamburger {
+            display: none;
+            font-size: 1.5rem;
+            color: white;
+            cursor: pointer;
+        }
+        #dark-mode-toggle {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            background: #3b82f6;
+            color: white;
+            padding: 0.6rem 1rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        #dark-mode-toggle:hover {
+            background: #2563eb;
+        }
+        .unit-content {
+            padding: 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, #f5f9ff, #e0e7ff);
+        }
+        .unit-content h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #222;
+        }
+        .lesson-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .lesson-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: right;
+            flex: 1 1 45%;
+            max-width: 500px;
+        }
+        .lesson-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #1e3a8a;
+        }
+        .lesson-item p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+        .lesson-item iframe {
+            max-width: 100%;
+            width: 100%;
+            height: 300px;
+            border-radius: 10px;
+        }
+        .resources {
+            margin-top: 1.5rem;
+        }
+        .resources h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: #1e3a8a;
+        }
+        .resource-item {
+            margin-bottom: 0.8rem;
+        }
+        .resource-item a {
+            color: #2563eb;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+        .resource-item a:hover {
+            color: #1e3a8a;
+        }
+        .resource-item i {
+            margin-left: 0.5rem;
+        }
+        @media (max-width: 768px) {
+            .unit-content h2 { font-size: 1.8rem; }
+            .lesson-item h3 { font-size: 1.3rem; }
+            .lesson-item p { font-size: 1rem; }
+            .lesson-item iframe { height: 250px; }
+            .lesson-list {
+                flex-direction: column;
+            }
+            .lesson-item {
+                flex: 1 1 100%;
+                max-width: 100%;
+            }
+            nav {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 4rem;
+                right: 0;
+                background: #1e3a8a;
+                width: 100%;
+                padding: 1rem;
+            }
+            nav.active {
+                display: flex;
+            }
+            .hamburger { display: block; }
+            header { padding: 0.8rem 1rem; }
+            .logo i { font-size: 1.8rem; }
+        }
+        @media (max-width: 480px) {
+            .unit-content h2 { font-size: 1.5rem; }
+            .lesson-item h3 { font-size: 1.2rem; }
+            .lesson-item p { font-size: 0.9rem; }
+            .lesson-item iframe { height: 200px; }
+            .resources h4 { font-size: 1.1rem; }
+            .resource-item a { font-size: 0.9rem; }
+        }
+        .back-button-container {
+            text-align: center;
+            margin: 2rem 0;
+        }
+        .back-button {
+            background: #3b82f6;
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-family: 'Cairo', Arial, sans-serif;
+            font-size: 1rem;
+            border: none;
+            transition: background 0.3s, transform 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .back-button:hover {
+            background: #2563eb;
+            transform: scale(1.05);
+        }
+        .dark-mode .back-button {
+            background: #2563eb;
+        }
+        .dark-mode .back-button:hover {
+            background: #1e3a8a;
+        }
+        @media (max-width: 480px) {
+            .back-button {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loader">
+        <i class="fas fa-calculator"></i>
+    </div>
+    <button id="dark-mode-toggle" aria-label="تبديل الوضع الليلي"><i class="fas fa-moon"></i></button>
+    <header>
+        <div class="logo">
+            <i class="fas fa-calculator"></i>
+        </div>
+        <div class="hamburger"><i class="fas fa-bars"></i></div>
+        <nav id="nav-menu">
+            <a href="index.html">الرئيسية</a>
+            <a href="tests.html">اختبارات</a>
+            <a href="game.html">ألعاب رياضيات</a>
+            <a href="contact.html">تواصل معنا</a>
+        </nav>
+    </header>
+<section class="unit-content">
+  <h2>الوحدة الأولى: الدوال الحقيقية ورسم المنحنيات</h2>
+  <div class="lesson-list">
+    
+    <div class="lesson-item">
+      <h3>الدرس الأول: الدوال الحقيقية (تحديد المجال والمدى)</h3>
+      <p>شرح مفهوم الدوال الحقيقية وكيفية تحديد المجال والمدى لها.</p>
+      <iframe src="#" title="الدوال الحقيقية - المجال والمدى" frameborder="0" allowfullscreen></iframe>
+      <div class="resources">
+        <h4>موارد إضافية</h4>
+        <div class="resource-item"><a href="path/to/lesson1.pdf" target="_blank"><i class="fas fa-file-pdf"></i> ملف PDF للدرس الأول</a></div>
+        <div class="resource-item"><a href="path/to/lesson1_test.html" target="_blank"><i class="fas fa-file-alt"></i> اختبار الدرس الأول</a></div>
+        <div class="resource-item"><a href="path/to/lesson1_reviews.pdf" target="_blank"><i class="fas fa-book"></i> مراجعة الدرس الأول</a></div>
+      </div>
+    </div>
+
+    <div class="lesson-item">
+      <h3>الدرس الثاني: العمليات على الدوال (تركيب دالتين)</h3>
+      <p>التعرف على طرق جمع وطرح وضرب وقسمة وتركيب الدوال.</p>
+      <iframe src="#" title="العمليات على الدوال" frameborder="0" allowfullscreen></iframe>
+      <div class="resources">
+        <h4>موارد إضافية</h4>
+        <div class="resource-item"><a href="path/to/lesson2.pdf" target="_blank"><i class="fas fa-file-pdf"></i> ملف PDF للدرس الثاني</a></div>
+        <div class="resource-item"><a href="path/to/lesson2_test.html" target="_blank"><i class="fas fa-file-alt"></i> اختبار الدرس الثاني</a></div>
+        <div class="resource-item"><a href="path/to/lesson2_reviews.pdf" target="_blank"><i class="fas fa-book"></i> مراجعة الدرس الثاني</a></div>
+      </div>
+    </div>
+
+    <div class="lesson-item">
+      <h3>الدرس الثالث: بحث خواص الدوال (الزوجية، الفردية، الأحادية)</h3>
+      <p>دراسة الخواص المميزة للدوال وكيفية تحديدها بالرسم والتحليل.</p>
+      <iframe src="#" title="خواص الدوال" frameborder="0" allowfullscreen></iframe>
+      <div class="resources">
+        <h4>موارد إضافية</h4>
+        <div class="resource-item"><a href="path/to/lesson3.pdf" target="_blank"><i class="fas fa-file-pdf"></i> ملف PDF للدرس الثالث</a></div>
+        <div class="resource-item"><a href="path/to/lesson3_test.html" target="_blank"><i class="fas fa-file-alt"></i> اختبار الدرس الثالث</a></div>
+        <div class="resource-item"><a href="path/to/lesson3_reviews.pdf" target="_blank"><i class="fas fa-book"></i> مراجعة الدرس الثالث</a></div>
+      </div>
+    </div>
+
+    <div class="lesson-item">
+      <h3>الدرس الرابع: التمثيل البياني للدوال الأساسية</h3>
+      <p>رسم التمثيل البياني للدوال الخطية والتربيعية والأساسية.</p>
+      <iframe src="#" title="التمثيل البياني للدوال" frameborder="0" allowfullscreen></iframe>
+      <div class="resources">
+        <h4>موارد إضافية</h4>
+        <div class="resource-item"><a href="path/to/lesson4.pdf" target="_blank"><i class="fas fa-file-pdf"></i> ملف PDF للدرس الرابع</a></div>
+        <div class="resource-item"><a href="path/to/lesson4_test.html" target="_blank"><i class="fas fa-file-alt"></i> اختبار الدرس الرابع</a></div>
+        <div class="resource-item"><a href="path/to/lesson4_reviews.pdf" target="_blank"><i class="fas fa-book"></i> مراجعة الدرس الرابع</a></div>
+      </div>
+    </div>
+
+    <div class="lesson-item">
+      <h3>الدرس الخامس: الدوال الهندسية (الدوال المثلثية الأساسية)</h3>
+      <p>التعرف على الدوال المثلثية الأساسية وخصائصها.</p>
+      <iframe src="#" title="الدوال المثلثية" frameborder="0" allowfullscreen></iframe>
+      <div class="resources">
+        <h4>موارد إضافية</h4>
+        <div class="resource-item"><a href="path/to/lesson5.pdf" target="_blank"><i class="fas fa-file-pdf"></i> ملف PDF للدرس الخامس</a></div>
+        <div class="resource-item"><a href="path/to/lesson5_test.html" target="_blank"><i class="fas fa-file-alt"></i> اختبار الدرس الخامس</a></div>
+        <div class="resource-item"><a href="path/to/lesson5_reviews.pdf" target="_blank"><i class="fas fa-book"></i> مراجعة الدرس الخامس</a></div>
+      </div>
+    </div>
+
+    <div class="lesson-item">
+      <h3>الدرس السادس: حل معادلات ومتباينات القيمة المطلقة</h3>
+      <p>كيفية التعامل مع المعادلات والمتباينات التي تتضمن القيمة المطلقة.</p>
+      <iframe src="#" title="القيمة المطلقة" frameborder="0" allowfullscreen></iframe>
+      <div class="resources">
+        <h4>موارد إضافية</h4>
+        <div class="resource-item"><a href="path/to/lesson6.pdf" target="_blank"><i class="fas fa-file-pdf"></i> ملف PDF للدرس السادس</a></div>
+        <div class="resource-item"><a href="path/to/lesson6_test.html" target="_blank"><i class="fas fa-file-alt"></i> اختبار الدرس السادس</a></div>
+        <div class="resource-item"><a href="path/to/lesson6_reviews.pdf" target="_blank"><i class="fas fa-book"></i> مراجعة الدرس السادس</a></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="back-button-container">
+    <button class="back-button" onclick="history.back()"><i class="fas fa-arrow-right"></i> رجوع</button>
+  </div>
+</section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll("iframe").forEach(frame => {
+    try {
+      const url = new URL(frame.src);
+
+      // لو الرابط من يوتيوب
+      if (url.hostname.includes("youtube.com") || url.hostname === "youtu.be") {
+        let videoId = "";
+
+        // حالة youtu.be
+        if (url.hostname === "youtu.be") {
+          videoId = url.pathname.replace("/", "");
+        }
+
+        // حالة watch?v=ID
+        else if (url.pathname === "/watch") {
+          videoId = url.searchParams.get("v");
+        }
+
+        // حالة shorts/ID
+        else if (url.pathname.startsWith("/shorts/")) {
+          videoId = url.pathname.split("/")[2];
+        }
+
+        // لو لقيت videoId صحيح → غيّر الرابط
+        if (videoId) {
+          frame.src = `https://www.youtube.com/embed/${videoId}`;
+        }
+      }
+    } catch (e) {
+      console.warn("خطأ في تحويل الرابط:", e);
+    }
+  });
+});
+        // Ensure back button respects dark mode
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+            document.querySelector('.back-button').classList.add('dark-mode');
+        }
+        // Loader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelector('.loader').classList.add('hidden');
+            }, 1000);
+        });
+        // Dark Mode Toggle
+        document.getElementById('dark-mode-toggle').addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            const toggleIcon = document.getElementById('dark-mode-toggle').querySelector('i');
+            toggleIcon.className = isDarkMode ? 'fas fa-sun' : 'fas fa-moon';
+        });
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+            document.getElementById('dark-mode-toggle').innerHTML = '<i class="fas fa-sun"></i>';
+        }
+        // Hamburger Menu
+        document.querySelector('.hamburger').addEventListener('click', () => {
+            document.getElementById('nav-menu').classList.toggle('active');
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97339eb00f54e240',t:'MTc1NTg3ODgxMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>السنوات الدراسية</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Cairo', Arial, sans-serif;
+            background: #fff;
+            color: #222;
+            text-align: right;
+            overflow-x: hidden;
+            transition: background 0.3s, color 0.3s;
+        }
+        .dark-mode {
+            background: #1e1e1e;
+            color: #e0e0e0;
+        }
+        header {
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6, #10b981);
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            animation: gradient 8s ease infinite;
+            background-size: 200% 200%;
+        }
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .logo i {
+            font-size: 2rem;
+            color: white;
+            animation: rotate 4s linear infinite;
+        }
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        nav {
+            display: flex;
+            gap: 1rem;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 15px;
+            transition: background 0.3s, transform 0.2s;
+        }
+        nav a:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+        .hamburger {
+            display: none;
+            font-size: 1.5rem;
+            color: white;
+            cursor: pointer;
+        }
+        .grades {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 3rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .grade-card {
+            perspective: 1000px;
+            height: 200px;
+            position: relative;
+            cursor: pointer; /* إضافة مؤشر تفاعلي */
+        }
+        .grade-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            border-radius: 20px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+        .grade-card:hover .grade-card-inner {
+            transform: rotateY(180deg);
+        }
+        .grade-card-front, .grade-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .grade-card-front {
+            background: linear-gradient(135deg, #3b82f6, #10b981);
+            color: white;
+        }
+        .grade-card-back {
+            background: linear-gradient(135deg, #2563eb, #059669);
+            color: white;
+            transform: rotateY(180deg);
+        }
+        .grade-card a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.6rem;
+            font-weight: bold;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .grade-card i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #fef08a;
+            animation: bounce 2s infinite;
+        }
+        .grade-card-back p {
+            font-size: 1.2rem;
+            padding: 1rem;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        .progress-bar {
+            margin: 2rem;
+            text-align: center;
+        }
+        .progress-bar h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        .progress-bar div {
+            background: #e5e7eb;
+            border-radius: 10px;
+            height: 20px;
+            overflow: hidden;
+        }
+        .progress-bar div span {
+            display: block;
+            height: 100%;
+            background: linear-gradient(135deg, #3b82f6, #10b981);
+            width: 0;
+            transition: width 0.5s;
+        }
+        #dark-mode-toggle {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            background: #3b82f6;
+            color: white;
+            padding: 0.6rem 1rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        #dark-mode-toggle:hover {
+            background: #2563eb;
+        }
+        footer {
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+        footer .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        footer .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        footer .footer-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+        footer .footer-links a:hover {
+            color: #10b981;
+        }
+        footer .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 1rem 0;
+        }
+        footer .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+        footer .social-icons a:hover {
+            color: #10b981;
+        }
+        footer p {
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+        @media (max-width: 768px) {
+            .grades { padding: 2rem 1rem; }
+            .grade-card a { font-size: 1.3rem; }
+            .grade-card i { font-size: 2.5rem; }
+            .progress-bar h3 { font-size: 1.5rem; }
+            nav { 
+                display: none; 
+            }
+            nav.active { 
+                display: flex; 
+                flex-direction: column; 
+                position: absolute; 
+                top: 4rem; 
+                left: 0; 
+                background: #1e3a8a; 
+                width: 100%; 
+                padding: 1rem; 
+            }
+            .hamburger { 
+                display: block; 
+            }
+            header { 
+                padding: 0.8rem 1rem; 
+            }
+            .logo i { 
+                font-size: 1.8rem; 
+            }
+            footer .footer-links a { font-size: 0.9rem; }
+            footer .social-icons a { font-size: 1.3rem; }
+        }
+        @media (max-width: 480px) {
+            .grades { padding: 1.5rem 0.5rem; }
+            .grade-card a { font-size: 1.2rem; }
+            .grade-card i { font-size: 2rem; }
+            .progress-bar h3 { font-size: 1.3rem; }
+            .progress-bar div { height: 15px; }
+            footer .footer-links a { font-size: 0.8rem; }
+            footer .social-icons a { font-size: 1.2rem; }
+            footer p { font-size: 0.8rem; }
+        }
+         .back-button-container {
+        text-align: center;
+        margin: 2rem 0;
+    }
+    .back-button {
+        background: #3b82f6;
+        color: white;
+        padding: 0.6rem 1.2rem;
+        border-radius: 12px;
+        cursor: pointer;
+        font-family: 'Cairo', Arial, sans-serif;
+        font-size: 1rem;
+        border: none;
+        transition: background 0.3s, transform 0.2s;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    .back-button:hover {
+        background: #2563eb;
+        transform: scale(1.05);
+    }
+    .dark-mode .back-button {
+        background: #2563eb;
+    }
+    .dark-mode .back-button:hover {
+        background: #1e3a8a;
+    }
+    @media (max-width: 480px) {
+        .back-button {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }
+    }
+    </style>
+</head>
+<body>
+    <button id="dark-mode-toggle" aria-label="تبديل الوضع الليلي"><i class="fas fa-moon"></i></button>
+    <header>
+        <div class="logo">
+            <i class="fas fa-calculator"></i>
+        </div>
+        <div class="hamburger"><i class="fas fa-bars"></i></div>
+        <nav id="nav-menu">
+            <a href="index.html">الرئيسية</a>
+            <a href="tests.html">اختبارات</a>
+            <a href="game.html">ألعاب رياضيات</a>
+            <a href="contact.html">تواصل معنا</a>
+        </nav>
+    </header>
+    <section class="grades">
+  <a href="{% url 'first_year' %}" class="grade-card" aria-label="الصف الأول الثانوي">
+    <div class="grade-card-inner">
+      <div class="grade-card-front">
+        <i class="fas fa-book-open"></i>
+        <span class="grade-title">الصف الأول الثانوي</span>
+      </div>
+      <div class="grade-card-back">
+        <i class="fas fa-book-open"></i>
+        <p>ابدأ رحلتك في الرياضيات مع دروس الصف الأول!</p>
+      </div>
+    </div>
+  </a>
+
+  <a href="{% url 'second_year' %}" class="grade-card" aria-label="الصف الثاني الثانوي">
+    <div class="grade-card-inner">
+      <div class="grade-card-front">
+        <i class="fas fa-book-open"></i>
+        <span class="grade-title">الصف الثاني الثانوي</span>
+      </div>
+      <div class="grade-card-back">
+        <i class="fas fa-book-open"></i>
+        <p>تقدم في الرياضيات مع دروس الصف الثاني!</p>
+      </div>
+    </div>
+  </a>
+
+  <a href="{% url 'third_year' %}" class="grade-card" aria-label="الصف الثالث الثانوي">
+    <div class="grade-card-inner">
+      <div class="grade-card-front">
+        <i class="fas fa-book-open"></i>
+        <span class="grade-title">الصف الثالث الثانوي</span>
+      </div>
+      <div class="grade-card-back">
+        <i class="fas fa-book-open"></i>
+        <p>استعد للنجاح في الثانوية العامة!</p>
+      </div>
+    </div>
+  </a>
+</section>
+
+<style>
+/* تأكد تحط هذا الCSS في ملف الستايلي الرئيسي أو داخلي داخل القالب */
+.grade-card {
+  display: block;
+  height: 200px;
+  perspective: 1000px;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 20px;
+  outline: none;
+  position: relative;   /* مهم عشان الأب يحتوي العناصر المطلقة */
+}
+
+.grade-card-inner {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  border-radius: 20px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  position: relative;   /* بيخلي الـ front & back يتحددوا داخله */
+}
+
+.grade-card-front,
+.grade-card-back {
+  position: absolute;   /* يخليهم فوق بعض */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 1rem;
+}
+
+.grade-card-front {
+  background: linear-gradient(135deg, #3b82f6, #10b981);
+  color: white;
+  z-index: 2;
+  transform: rotateY(0deg);
+}
+
+.grade-card-back {
+  background: linear-gradient(135deg, #2563eb, #059669);
+  color: white;
+  transform: rotateY(180deg);
+}
+
+.grade-card:hover .grade-card-inner,
+.grade-card:focus .grade-card-inner {
+  transform: rotateY(180deg);
+}
+
+
+/* small screens */
+@media (max-width: 480px) {
+  .grade-card { height: 160px; }
+  .grade-card i { font-size: 2rem; }
+  .grade-title { font-size: 1rem; }
+}
+</style>
+    <section class="progress-bar">
+        <h3>تقدمك</h3>
+        <div>
+            <span id="progress"></span>
+        </div>
+       
+    </section>
+    <div class="back-button-container">
+    <button class="back-button" onclick="history.back()"><i class="fas fa-arrow-right"></i> رجوع</button>
+</div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="index.html">الرئيسية</a>
+                <a href="tests.html">اختبارات</a>
+                <a href="game.html">ألعاب رياضيات</a>
+                <a href="contact.html">تواصل معنا</a>
+            </div>
+            <div class="social-icons">
+                <a href="https://www.youtube.com/@%D8%B3%D9%84%D8%B3%D9%84%D8%A9%D9%87%D9%86%D8%AF%D8%B3%D8%AA%D9%89-%D9%81%D9%89-%D8%A7%D9%84%D8%B1%D9%8A%D8%A7%D8%B6%D9%8A%D8%A7%D8%AA" target="_blank" aria-label="يوتيوب"><i class="fab fa-youtube"></i></a>
+                <a href="https://twitter.com" target="_blank" aria-label="تويتر"><i class="fab fa-twitter"></i></a>
+                <a href="https://facebook.com" target="_blank" aria-label="فيسبوك"><i class="fab fa-facebook"></i></a>
+                <a href="https://wa.me/1234567890" target="_blank" aria-label="واتساب"><i class="fab fa-whatsapp"></i></a>
+            </div>
+            <p>جميع الحقوق محفوظة © 2025</p>
+        </div>
+    </footer>
+    <script>
+         // Ensure back button respects dark mode
+    if (localStorage.getItem('darkMode') === 'true') {
+        document.querySelector('.back-button').classList.add('dark-mode');
+    }
+        // Dark Mode Toggle
+        document.getElementById('dark-mode-toggle').addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+            document.getElementById('dark-mode-toggle').innerHTML = document.body.classList.contains('dark-mode') ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            new Audio('https://freesound.org/data/previews/171/171671_2437358-lq.mp3').play();
+        });
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+            document.getElementById('dark-mode-toggle').innerHTML = '<i class="fas fa-sun"></i>';
+        }
+
+        // Hamburger Menu
+        document.querySelector('.hamburger').addEventListener('click', () => {
+            document.getElementById('nav-menu').classList.toggle('active');
+        });
+
+        // Progress Bar
+        let completedLessons = JSON.parse(localStorage.getItem('completedLessons')) || [];
+        const totalLessons = 10; // افتراضي، يمكن تغييره حسب عدد الدروس
+        const progress = (completedLessons.length / totalLessons) * 100;
+        document.getElementById('progress').style.width = `${progress}%`;
+    </script>
+</body>
+</html>
